@@ -1,0 +1,60 @@
+# Cloudflare Pages Ignore File
+# Exclude server-side files from Pages deployment
+
+# Server directory (Express API - not needed for Pages)
+server/
+
+# Server build output
+dist/server/
+
+# Documentation files
+*.md
+!README.md
+
+# Development files
+.vscode/
+.idea/
+
+# Test files
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+
+# Docker files
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# Development scripts
+dev.sh
+
+# Git files
+.git/
+.gitignore
+
+# CI/CD files
+.github/
+
+# Environment files
+.env
+.env.*
+
+# Node modules (will be reinstalled)
+node_modules/
+
+# Build artifacts (will be rebuilt)
+dist/
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
