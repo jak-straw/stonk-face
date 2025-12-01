@@ -1,0 +1,152 @@
+================================================================================
+  STONKFACE BUILD VERIFICATION FILE
+================================================================================
+
+If you can see this file, your Cloudflare Pages build is configured correctly!
+
+Date Created: December 1, 2024
+Source Location: stonk-face/public/BUILD_VERIFICATION_DO_NOT_DELETE.txt
+Expected Deploy Location: dist/client/BUILD_VERIFICATION_DO_NOT_DELETE.txt
+
+This file should be accessible at:
+https://your-site.pages.dev/BUILD_VERIFICATION_DO_NOT_DELETE.txt
+
+================================================================================
+  CONFIGURATION CHECK
+================================================================================
+
+✅ Build Command: npm run build:client
+✅ Build Output Directory: dist/client
+✅ Root Directory: (empty)
+✅ Framework: Vite
+✅ Node Version: 18
+
+================================================================================
+  IF YOU SEE "HELLO WORLD" INSTEAD OF STONKFACE APP
+================================================================================
+
+This means ONE of the following:
+
+1. WRONG BUILD OUTPUT DIRECTORY
+   - Check Cloudflare Pages Settings > Builds & deployments
+   - Build output directory MUST be exactly: dist/client
+   - NOT "dist" or "client" or "/dist/client" or "build"
+
+2. MULTIPLE CLOUDFLARE PAGES PROJECTS
+   - You might have 2+ Pages projects
+   - One is correct, one is showing "hello world"
+   - Check which project you're viewing
+   - Delete old/test projects
+
+3. WRONG PROJECT URL
+   - You might be viewing a different project's URL
+   - Check the URL matches your actual deployment
+
+4. CACHED OLD VERSION
+   - Browser cached old deployment
+   - Hard refresh: Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)
+   - Or try incognito/private mode
+
+5. BUILD OUTPUT DIRECTORY HAS WRONG CASE
+   - Linux/Unix are case-sensitive
+   - Must be "dist/client" not "Dist/Client" or "DIST/CLIENT"
+
+================================================================================
+  IMMEDIATE ACTION REQUIRED
+================================================================================
+
+RIGHT NOW, do these steps in order:
+
+STEP 1: Verify you can see THIS file
+   Visit: https://your-site.pages.dev/BUILD_VERIFICATION_DO_NOT_DELETE.txt
+
+   ✅ Can see this file? → Configuration is CORRECT, proceed to Step 2
+   ❌ Cannot see this file? → Build output directory is WRONG, fix it first
+
+STEP 2: If you CAN see this file but homepage shows "hello world"
+   Then the build is correct but something else is wrong:
+
+   A. Check browser console (F12)
+      - Look for JavaScript errors (red text)
+      - Look for failed network requests
+
+   B. View page source (Right-click > View Page Source)
+      - Should see: <!-- StonkFace v1.0 - Deployed from client/index.html -->
+      - If you see "hello world" in source, wrong project is deployed
+
+   C. Check you're on the right domain
+      - Cloudflare gives you: yourproject.pages.dev
+      - Make sure you're not on a different Pages project
+
+STEP 3: Check test page
+   Visit: https://your-site.pages.dev/test.html
+   Should show a purple gradient page with "StonkFace is HERE!"
+
+================================================================================
+  NUCLEAR OPTION - START FRESH
+================================================================================
+
+If nothing above works:
+
+1. In Cloudflare Dashboard:
+   - Pages > Your Project > Settings
+   - Scroll to bottom
+   - "Delete project"
+
+2. Create new Pages project:
+   - Connect to GitHub: jak-straw/stonk-face
+   - Framework: Vite
+   - Build command: npm run build:client
+   - Build output: dist/client
+   - Add environment variable: NODE_VERSION = 18
+   - Deploy
+
+3. Wait 2-3 minutes for build
+
+4. Check this file again at new URL
+
+================================================================================
+  CONTACT INFO
+================================================================================
+
+If you've tried EVERYTHING and still see "hello world":
+
+1. Take screenshots of:
+   - Cloudflare build settings page
+   - Cloudflare build logs
+   - The "hello world" page
+   - Browser console errors (F12)
+
+2. Check GitHub repo has latest commits:
+   - Should see commits about "Cloudflare deployment"
+   - Should see this BUILD_VERIFICATION file in repo
+
+3. Verify build succeeded in Cloudflare:
+   - Check deployment status is "Success" not "Failed"
+   - Check build logs show "✓ built in ~2s"
+
+================================================================================
+  EXPECTED WORKING STATE
+================================================================================
+
+When everything works correctly:
+
+Homepage (/)
+   - Shows: StonkFace header with "Share Your Favorite Videos" subtitle
+   - Has: Dark/light mode toggle in top right
+   - Contains: Video upload form on left
+   - Contains: Video player area on right
+   - Working: Add video functionality with localStorage
+
+Test Page (/test.html)
+   - Shows: Purple gradient page
+   - Says: "StonkFace is HERE!"
+
+This File (/BUILD_VERIFICATION_DO_NOT_DELETE.txt)
+   - Shows: This text you're reading now
+
+================================================================================
+
+Good luck! The app is ready, the build works - it's just a configuration issue.
+
+🎬 StonkFace - Share Your Favorite Videos

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StonkFace Deployment Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            text-align: center;
+        }
+        .emoji {
+            font-size: 4em;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .info {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .success {
+            color: #4ade80;
+            font-weight: bold;
+        }
+        .timestamp {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">🎬✨🚀</div>
+        <h1>StonkFace is HERE!</h1>
+
+        <div class="info">
+            <p class="success">✅ SUCCESS! This file is being served from the correct build output.</p>
+
+            <p><strong>Source:</strong> <code>stonk-face/public/test.html</code></p>
+            <p><strong>Build Output:</strong> <code>dist/client/test.html</code></p>
+            <p><strong>Deployed:</strong> December 1, 2024</p>
+
+            <hr style="margin: 20px 0; border: 1px solid rgba(255,255,255,0.3);">
+
+            <h3>If you can see THIS page:</h3>
+            <ul>
+                <li>✅ Cloudflare is deploying from <code>dist/client</code></li>
+                <li>✅ Build command is working correctly</li>
+                <li>✅ Public directory is being copied</li>
+                <li>✅ Your configuration is CORRECT</li>
+            </ul>
+
+            <h3>Next step:</h3>
+            <p>Visit <a href="/" style="color: #4ade80; text-decoration: underline;">https://your-site.pages.dev/</a> to see the full StonkFace application!</p>
+
+            <h3>If you still see "hello world" on the home page:</h3>
+            <ol>
+                <li>Check if you have multiple Cloudflare Pages projects</li>
+                <li>Verify you're viewing the correct URL</li>
+                <li>Clear your browser cache (Ctrl+Shift+R)</li>
+                <li>Check browser console (F12) for JavaScript errors</li>
+            </ol>
+        </div>
+
+        <div class="timestamp">
+            Built: <script>document.write(new Date().toLocaleString())</script>
+        </div>
+    </div>
+</body>
+</html>
