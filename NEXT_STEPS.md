@@ -90,7 +90,7 @@ curl http://localhost:5000/api/videos
 
 ### Test Frontend
 - Open: http://localhost:3000
-- Should see VideoShare interface
+- Should see StonkFace interface
 - Add a video and watch it appear
 
 ---

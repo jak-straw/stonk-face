@@ -63,7 +63,7 @@ function App() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Youtube className="size-8 text-primary" />
-              <h1>VideoShare</h1>
+              <h1>StonkFace</h1>
             </div>
             <ThemeToggle />
           </div>

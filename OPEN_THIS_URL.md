@@ -27,7 +27,7 @@ When you open **http://localhost:3000**, you'll see:
 
 ```
 ┌─────────────────────────────────────────────┐
-│  🎬 VideoShare                              │
+│  🎬 StonkFace                               │
 ├─────────────────────────────────────────────┤
 │                                             │
 │  Add Video Form:                           │

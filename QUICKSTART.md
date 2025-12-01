@@ -133,7 +133,7 @@ curl http://localhost:5000/health
 ### Test Frontend
 Open browser: **http://localhost:3000**
 
-You should see the VideoShare interface! ✨
+You should see the StonkFace interface! ✨
 
 ---
 

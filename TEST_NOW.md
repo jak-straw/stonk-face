@@ -24,7 +24,7 @@ This will start:
 ## 🌐 Test the Frontend
 
 1. Open your browser to: **http://localhost:3000**
-2. You should see the **VideoShare** interface
+2. You should see the **StonkFace** interface
 3. Try adding a video:
    - URL: `https://www.youtube.com/watch?v=dQw4w9WgXcQ`
    - Title: `Test Video`
@@ -106,7 +106,7 @@ docker run -d -p 27017:27017 --name mongodb mongo:latest
 ## 📊 What You're Seeing
 
 When you access http://localhost:3000, you should see:
-- A header with "VideoShare" and YouTube icon
+- A header with "StonkFace" and YouTube icon
 - A form to add videos (left side)
 - A video player area (right side)
 - A video gallery showing all your videos
