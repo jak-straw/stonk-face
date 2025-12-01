@@ -1,0 +1,25 @@
+StonkFace Deployment Verification
+==================================
+
+This file confirms the correct build output is being deployed.
+
+Build Date: 2024-12-01
+Source: stonk-face/public/DEPLOYED.txt
+Expected Output Directory: dist/client/
+
+If you can see this file at https://your-site.pages.dev/DEPLOYED.txt
+then the public directory is being copied correctly.
+
+If you see "hello world" instead of the StonkFace app:
+1. Check Cloudflare Pages build settings
+2. Verify "Build output directory" is set to: dist/client
+3. Verify "Build command" is: npm run build:client
+4. Check the build logs for any errors
+
+Expected files in dist/client/:
+- index.html (React app entry point)
+- assets/ (JavaScript and CSS bundles)
+- DEPLOYED.txt (this file)
+- _redirects (SPA routing configuration)
+
+StonkFace - Share Your Favorite Videos
