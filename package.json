@@ -11,7 +11,7 @@
     "build": "npm run build:server && npm run build:client",
     "build:server": "tsc -p server/tsconfig.json",
     "build:client": "vite build",
-    "deploy": "npm run build:client",
+    "deploy": "exit 0",
     "start": "node dist/server/server.js",
     "server:start": "node dist/server/server.js",
     "client:start": "vite preview",
