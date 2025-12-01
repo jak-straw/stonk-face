@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
-import { VideoForm } from './components/VideoForm';
-import { VideoGallery, type Video } from './components/VideoGallery';
-import { VideoPlayer } from './components/VideoPlayer';
-import { Youtube } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { VideoForm } from "./components/VideoForm";
+import { VideoGallery, type Video } from "./components/VideoGallery";
+import { VideoPlayer } from "./components/VideoPlayer";
+import { Youtube } from "lucide-react";
 
 function extractVideoId(url: string): string | null {
   const patterns = [
     /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/,
     /youtube\.com\/embed\/([^&\n?#]+)/,
-    /youtube\.com\/v\/([^&\n?#]+)/
+    /youtube\.com\/v\/([^&\n?#]+)/,
   ];
 
   for (const pattern of patterns) {
@@ -22,20 +22,20 @@ function extractVideoId(url: string): string | null {
 
 function App() {
   const [videos, setVideos] = useState<Video[]>(() => {
-    const saved = localStorage.getItem('youtube-videos');
+    const saved = localStorage.getItem("youtube-videos");
     return saved ? JSON.parse(saved) : [];
   });
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
   useEffect(() => {
-    localStorage.setItem('youtube-videos', JSON.stringify(videos));
+    localStorage.setItem("youtube-videos", JSON.stringify(videos));
   }, [videos]);
 
   const handleAddVideo = (url: string, title: string) => {
     const videoId = extractVideoId(url);
-    
+
     if (!videoId) {
-      alert('Invalid YouTube URL. Please enter a valid YouTube link.');
+      alert("Invalid YouTube URL. Please enter a valid YouTube link.");
       return;
     }
 
@@ -75,7 +75,7 @@ function App() {
           <div className="lg:col-span-2">
             <div className="space-y-8">
               <VideoPlayer video={selectedVideo} />
-              
+
               <div>
                 <h2 className="mb-4">Video Gallery</h2>
                 <VideoGallery

@@ -10,21 +10,37 @@ Get up and running with Stonk Face in 5 minutes!
 
 ## 🎯 Option 1: Quick Start (Recommended)
 
-### 1. Clone & Setup
+### 1. Clone & Install
 ```bash
-cd /home/zachbrenneman/Projects/stonk-face
-./dev.sh
+git clone https://github.com/YOUR_USERNAME/stonk-face.git
+cd stonk-face
+npm install
 ```
 
-Select option **1** to set up the project automatically.
+### 2. Configure Environment
+```bash
+cp .env.example .env
+# Edit .env if needed (default settings work for local development)
+```
 
-### 2. Start Development
-Run `./dev.sh` again and select option **4** to start both servers.
+### 3. Start MongoDB
+```bash
+# Local MongoDB
+mongod
+
+# OR with Docker
+docker run -d -p 27017:27017 --name mongodb mongo:latest
+```
+
+### 4. Start Development
+```bash
+npm run dev
+```
 
 **Done!** 🎉
-- Backend: http://localhost:5000
-- Frontend: http://localhost:3000
-- API Docs: http://localhost:5000/api/videos
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:5000
+- **Health Check**: http://localhost:5000/health
 
 ---
 
@@ -47,32 +63,50 @@ docker-compose down
 
 ---
 
-## 🛠️ Option 3: Manual Setup
+## 🛠️ Option 3: Manual Setup (Step by Step)
 
 ### 1. Start MongoDB
 ```bash
-# Local MongoDB
+# Option A: Local MongoDB
 mongod
 
-# OR with Docker
+# Option B: Docker MongoDB
 docker run -d -p 27017:27017 --name mongodb mongo:latest
+
+# Option C: MongoDB Atlas (Cloud)
+# Get connection string from https://www.mongodb.com/cloud/atlas
+# Update MONGODB_URI in .env
 ```
 
-### 2. Setup Backend
+### 2. Install Dependencies
 ```bash
-cd backend
 npm install
+```
+
+### 3. Configure Environment
+```bash
 cp .env.example .env
-npm run dev
 ```
 
-Backend runs on **http://localhost:5000**
+Edit `.env`:
+```env
+NODE_ENV=development
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/stonk-face
+CORS_ORIGIN=http://localhost:3000
+VITE_API_URL=http://localhost:5000
+```
 
-### 3. Setup Frontend (New Terminal)
+### 4. Start Backend (Terminal 1)
 ```bash
-cd project
-npm install
-npm run dev
+npm run server:dev
+```
+
+Server runs on **http://localhost:5000**
+
+### 5. Start Frontend (Terminal 2)
+```bash
+npm run client:dev
 ```
 
 Frontend runs on **http://localhost:3000**
@@ -86,18 +120,20 @@ Frontend runs on **http://localhost:3000**
 curl http://localhost:5000/health
 ```
 
-Expected response:
+**Expected Response:**
 ```json
 {
   "success": true,
-  "message": "Server is running"
+  "message": "Server is running",
+  "timestamp": "2024-01-01T00:00:00.000Z",
+  "environment": "development"
 }
 ```
 
 ### Test Frontend
-Open browser: http://localhost:3000
+Open browser: **http://localhost:3000**
 
-You should see the VideoShare interface!
+You should see the VideoShare interface! ✨
 
 ---
 
@@ -105,10 +141,11 @@ You should see the VideoShare interface!
 
 ### Add Your First Video
 
-1. Go to http://localhost:3000
-2. Paste a YouTube URL (e.g., `https://www.youtube.com/watch?v=dQw4w9WgXcQ`)
-3. Enter a title
-4. Click "Add Video"
+1. Go to **http://localhost:3000**
+2. Paste a YouTube URL:
+   - Example: `https://www.youtube.com/watch?v=dQw4w9WgXcQ`
+3. Enter a title: `My First Video`
+4. Click **"Add Video"**
 5. Watch it appear in the gallery! 📹
 
 ### API Examples
@@ -119,7 +156,9 @@ curl -X POST http://localhost:5000/api/videos \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Cool Video",
-    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "description": "This is an awesome video!",
+    "tags": ["music", "fun"]
   }'
 ```
 
@@ -130,44 +169,86 @@ curl http://localhost:5000/api/videos
 
 #### Get Trending Videos
 ```bash
-curl http://localhost:5000/api/videos/trending
+curl http://localhost:5000/api/videos/trending?limit=5
+```
+
+#### Search Videos
+```bash
+curl "http://localhost:5000/api/videos?search=music&limit=10"
+```
+
+---
+
+## 📜 Available Commands
+
+```bash
+# Development
+npm run dev              # Start both frontend & backend
+npm run client:dev       # Start frontend only (port 3000)
+npm run server:dev       # Start backend only (port 5000)
+
+# Production Build
+npm run build            # Build both client & server
+npm run build:client     # Build frontend
+npm run build:server     # Build backend
+
+# Production Start
+npm start                # Start production server
+
+# Code Quality
+npm run lint             # Check code quality
+npm run lint:fix         # Fix linting issues
+npm run type-check       # Check TypeScript types
+npm test                 # Run tests
+```
+
+---
+
+## 📊 Database Management
+
+### Using Mongo Express (Docker Setup)
+1. Go to **http://localhost:8081**
+2. Login:
+   - Username: `admin`
+   - Password: `admin123`
+3. Browse the `stonk-face` database
+4. View and manage video documents
+
+### Using MongoDB Compass
+1. Download [MongoDB Compass](https://www.mongodb.com/products/compass)
+2. Connect to: `mongodb://localhost:27017`
+3. Select `stonk-face` database
+4. Browse the `videos` collection
+
+### Using MongoDB Shell
+```bash
+mongosh
+
+use stonk-face
+db.videos.find().pretty()
+db.videos.countDocuments()
 ```
 
 ---
 
 ## 🔧 Configuration
 
-### Backend Environment (.env)
-```env
-NODE_ENV=development
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/stonk-face
-CORS_ORIGIN=http://localhost:3000
-```
+### Environment Variables
 
-### Frontend Configuration
-Update API endpoint in frontend code if needed (default: http://localhost:5000)
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `NODE_ENV` | Environment mode | `development` |
+| `PORT` | Backend server port | `5000` |
+| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/stonk-face` |
+| `CORS_ORIGIN` | Allowed frontend origin | `http://localhost:3000` |
+| `VITE_API_URL` | Backend API URL (frontend) | `http://localhost:5000` |
 
----
+### Vite Dev Server
 
-## 📊 Database Management
+The Vite dev server automatically proxies `/api` requests to the backend server.
 
-### Using Mongo Express (Docker only)
-1. Go to http://localhost:8081
-2. Login: `admin` / `admin123`
-3. View and manage your videos database
-
-### Using MongoDB Compass
-1. Download [MongoDB Compass](https://www.mongodb.com/products/compass)
-2. Connect to: `mongodb://localhost:27017`
-3. Browse the `stonk-face` database
-
-### Using MongoDB Shell
-```bash
-mongosh
-use stonk-face
-db.videos.find().pretty()
-```
+Frontend port: **3000**  
+Backend port: **5000**
 
 ---
 
@@ -175,11 +256,20 @@ db.videos.find().pretty()
 
 ### Port 5000 Already in Use
 ```bash
-# Find process
+# Find process using port 5000
 lsof -i :5000
 
-# Kill it
+# Kill the process
 kill -9 <PID>
+
+# Or change port in .env
+PORT=5001
+```
+
+### Port 3000 Already in Use
+```bash
+# Vite will automatically try next available port
+# Or specify port in vite.config.ts
 ```
 
 ### MongoDB Connection Error
@@ -187,15 +277,27 @@ kill -9 <PID>
 # Check if MongoDB is running
 pgrep mongod
 
-# Start MongoDB
+# If not running, start it
 mongod
+
+# Check MongoDB logs
+tail -f /usr/local/var/log/mongodb/mongo.log
 ```
 
-### Dependencies Issues
+### "Cannot find module" Errors
 ```bash
 # Clean install
 rm -rf node_modules package-lock.json
 npm install
+```
+
+### TypeScript Errors
+```bash
+# Check types
+npm run type-check
+
+# Rebuild
+npm run build
 ```
 
 ### Docker Issues
@@ -203,6 +305,25 @@ npm install
 # Reset everything
 docker-compose down -v
 docker-compose up -d --build
+
+# View logs
+docker-compose logs -f
+
+# Check running containers
+docker ps
+```
+
+### Frontend Not Loading
+```bash
+# Clear browser cache
+# Check console for errors (F12)
+# Verify backend is running: curl http://localhost:5000/health
+```
+
+### CORS Errors
+```bash
+# Verify CORS_ORIGIN in .env matches frontend URL
+# Restart backend server after changing .env
 ```
 
 ---
@@ -211,37 +332,40 @@ docker-compose up -d --build
 
 ```
 stonk-face/
-├── backend/              # Express API (Port 5000)
-│   ├── src/
-│   │   ├── controllers/  # Business logic
-│   │   ├── models/       # Database schemas
-│   │   ├── routes/       # API endpoints
-│   │   └── server.ts     # Entry point
-│   └── package.json
-├── project/              # React Frontend (Port 3000)
-│   ├── components/       # UI components
+├── client/              # React Frontend (Vite)
+│   ├── components/      # React components
+│   ├── styles/          # CSS files
 │   ├── App.tsx          # Main app
-│   └── package.json
-└── docker-compose.yml    # Docker setup
+│   ├── main.tsx         # Entry point
+│   └── index.html       # HTML template
+├── server/              # Express Backend
+│   └── src/
+│       ├── controllers/ # Route handlers
+│       ├── models/      # MongoDB schemas
+│       ├── routes/      # API routes
+│       ├── middleware/  # Express middleware
+│       ├── utils/       # Helper functions
+│       ├── app.ts       # Express config
+│       └── server.ts    # Server start
+├── dist/                # Build output
+├── node_modules/        # Dependencies
+├── package.json         # Project config
+├── tsconfig.json        # TypeScript config
+├── vite.config.ts       # Vite config
+├── .env                 # Environment variables
+└── docker-compose.yml   # Docker setup
 ```
 
 ---
 
 ## 🚀 Next Steps
 
-1. ✅ **Add More Videos** - Build your collection
-2. 📚 **Read the Docs** - Check [README.md](./README.md) for detailed API docs
-3. 🔐 **Add Authentication** - Implement user accounts (coming soon)
-4. 🎨 **Customize UI** - Modify React components in `project/components/`
+1. ✅ **Explore the API** - Try different endpoints
+2. 📚 **Read Documentation** - Check [README.md](./README.md)
+3. 🎨 **Customize UI** - Modify components in `client/components/`
+4. 🔐 **Add Features** - Implement authentication, comments, etc.
 5. 🌐 **Deploy** - See deployment guides in README
-
----
-
-## 🆘 Need Help?
-
-- **Documentation**: See [README.md](./README.md)
-- **GitHub Issues**: Open an issue on GitHub
-- **Backend Docs**: See [backend/README.md](./backend/README.md)
+6. 🧪 **Write Tests** - Add test coverage
 
 ---
 
@@ -249,60 +373,82 @@ stonk-face/
 
 ### View Logs
 ```bash
-# Backend logs
-tail -f backend.log
+# If using npm run dev
+# Logs show in terminal
 
-# Frontend logs
-tail -f frontend.log
-
-# Docker logs
-docker-compose logs -f
+# If using Docker
+docker-compose logs -f backend
+docker-compose logs -f mongodb
 ```
 
 ### Stop Development Servers
 ```bash
-# If using dev.sh
-./dev.sh
-# Select option 5
+# Press Ctrl+C in terminal where servers are running
 
-# If using Docker
-docker-compose down
-
-# Manual (find PIDs)
-lsof -i :5000 -i :3000
-kill <PID>
+# Or kill processes
+pkill -f "tsx watch"
+pkill -f "vite"
 ```
 
 ### Reset Database
 ```bash
 mongosh
 use stonk-face
-db.videos.deleteMany({})
+db.videos.deleteMany({})  # Delete all videos
+db.dropDatabase()         # Delete entire database
 ```
 
-### Run Tests
+### Update Dependencies
 ```bash
-# Backend tests
-cd backend
-npm test
+# Check for updates
+npm outdated
 
-# Frontend tests
-cd project
-npm test
+# Update all dependencies
+npm update
+
+# Update specific package
+npm install package-name@latest
 ```
+
+### Add New npm Package
+```bash
+# Install and save to dependencies
+npm install package-name
+
+# Install and save to devDependencies
+npm install -D package-name
+```
+
+---
+
+## 📚 Useful Resources
+
+- **Node.js Docs**: https://nodejs.org/docs/
+- **React Docs**: https://react.dev/
+- **Vite Docs**: https://vitejs.dev/
+- **Express Docs**: https://expressjs.com/
+- **MongoDB Docs**: https://www.mongodb.com/docs/
+- **Mongoose Docs**: https://mongoosejs.com/docs/
+- **TypeScript Docs**: https://www.typescriptlang.org/docs/
+
+---
+
+## 🆘 Need Help?
+
+- **Issues**: [Open GitHub Issue](https://github.com/YOUR_USERNAME/stonk-face/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/YOUR_USERNAME/stonk-face/discussions)
+- **Documentation**: See [README.md](./README.md)
 
 ---
 
 ## 🎉 You're Ready!
 
-Your Stonk Face application is now running! Start sharing your favorite YouTube videos with friends.
+Your Stonk Face application is now running! 
 
-**Happy Coding!** 🚀📹
+**Start sharing your favorite YouTube videos!** 🚀📹
 
 ---
 
-**Pro Tip**: Use the `dev.sh` script for the easiest development experience. It handles everything automatically!
+**Pro Tip**: Keep the backend and frontend running in separate terminal windows so you can see logs from both simultaneously!
 
-```bash
-./dev.sh
-```
+**Happy Coding!** 🎉

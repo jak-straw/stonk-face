@@ -1,66 +1,53 @@
 # Stonk Face 🎥
 
-A modern video sharing application for YouTube videos, built with React and Node.js.
+A modern, full-stack video sharing application for YouTube videos, built with React, Node.js, Express, TypeScript, and MongoDB.
+
+## 🚀 Features
+
+- **Video Management** - Add, view, edit, and delete YouTube videos
+- **Video Gallery** - Browse all shared videos in a beautiful gallery
+- **Embedded Player** - Watch videos directly in the app
+- **Search & Filter** - Find videos by title, description, or tags
+- **Trending Videos** - See most popular videos
+- **View Counter** - Track video views
+- **Like System** - Like your favorite videos
+- **RESTful API** - Full-featured backend API
+- **Type Safety** - TypeScript on both frontend and backend
 
 ## 📁 Project Structure
 
 ```
 stonk-face/
-├── backend/          # Node.js/Express API server
-├── project/          # React frontend application
-└── README.md         # This file
+├── client/              # React frontend (Vite)
+│   ├── components/      # UI components
+│   ├── styles/          # CSS styles
+│   ├── App.tsx          # Main app component
+│   ├── main.tsx         # Entry point
+│   └── index.html       # HTML template
+├── server/              # Express backend
+│   └── src/
+│       ├── controllers/ # Business logic
+│       ├── models/      # MongoDB schemas
+│       ├── routes/      # API endpoints
+│       ├── middleware/  # Custom middleware
+│       ├── utils/       # Helper functions
+│       ├── app.ts       # Express app setup
+│       └── server.ts    # Server entry point
+├── dist/                # Compiled output
+├── package.json         # Dependencies & scripts
+├── tsconfig.json        # TypeScript config (root)
+├── vite.config.ts       # Vite config
+└── docker-compose.yml   # Docker setup
 ```
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Node.js (v18 or higher)
-- MongoDB (v6 or higher)
-- npm or yarn
-
-### Backend Setup
-
-```bash
-cd backend
-npm install
-cp .env.example .env
-# Edit .env with your configuration
-npm run dev
-```
-
-The backend API will start on `http://localhost:5000`
-
-### Frontend Setup
-
-```bash
-cd project
-npm install
-npm run dev
-```
-
-The frontend will start on `http://localhost:3000`
-
-## 🎯 Features
-
-### Current Features
-- **Video Management** - Add, view, and manage YouTube videos
-- **Video Gallery** - Browse all shared videos
-- **Video Player** - Embedded YouTube player
-- **Search & Filter** - Find videos by title, description, or tags
-- **Trending Videos** - See most popular videos
-- **View Counter** - Track video views
-- **Like System** - Like your favorite videos
-
-### Planned Features
-- User authentication
-- User profiles
-- Comments and discussions
-- Video playlists
-- Social sharing
-- Real-time notifications
 
 ## 🛠️ Technology Stack
+
+### Frontend
+- **React 18** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Fast build tool
+- **Tailwind CSS** - Utility-first CSS
+- **Lucide React** - Icon library
 
 ### Backend
 - **Node.js** - JavaScript runtime
@@ -68,123 +55,368 @@ The frontend will start on `http://localhost:3000`
 - **TypeScript** - Type safety
 - **MongoDB** - NoSQL database
 - **Mongoose** - ODM for MongoDB
-- **Express Validator** - Request validation
-- **Helmet** - Security headers
-- **CORS** - Cross-origin resource sharing
 
-### Frontend
-- **React** - UI library
-- **TypeScript** - Type safety
-- **Lucide React** - Icon library
-- **LocalStorage** - Client-side data persistence
+### DevOps
+- **Docker** - Containerization
+- **Concurrently** - Run multiple processes
+- **ESLint** - Code linting
 
-## 📚 Documentation
+## 📋 Prerequisites
 
-- [Backend API Documentation](./backend/README.md)
-- [Frontend Documentation](./project/README.md)
+- **Node.js** v18+ ([Download](https://nodejs.org/))
+- **MongoDB** v6+ ([Download](https://www.mongodb.com/try/download/community))
+- **npm** or **yarn**
+- **Git**
 
-## 🔧 Development
+## 🚀 Quick Start
 
-### Running Tests
+### Option 1: Standard Setup (Recommended)
+
+1. **Clone the repository**
 ```bash
-# Backend tests
-cd backend
-npm test
-
-# Frontend tests
-cd project
-npm test
+git clone https://github.com/YOUR_USERNAME/stonk-face.git
+cd stonk-face
 ```
 
-### Building for Production
-
+2. **Install dependencies**
 ```bash
-# Backend
-cd backend
-npm run build
-npm start
-
-# Frontend
-cd project
-npm run build
+npm install
 ```
 
-## 🗄️ Database
-
-The application uses MongoDB to store video metadata. Make sure MongoDB is running before starting the backend server.
-
-### Local MongoDB
+3. **Set up environment variables**
 ```bash
+cp .env.example .env
+# Edit .env with your configuration
+```
+
+4. **Start MongoDB**
+```bash
+# Local MongoDB
 mongod
-```
 
-### Docker MongoDB
-```bash
+# OR with Docker
 docker run -d -p 27017:27017 --name mongodb mongo:latest
 ```
 
-### MongoDB Atlas (Cloud)
-Update the `MONGODB_URI` in your `.env` file with your Atlas connection string.
+5. **Start development servers**
+```bash
+npm run dev
+```
+
+This starts both frontend (port 3000) and backend (port 5000) simultaneously!
+
+**Access the app:**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5000
+- Health check: http://localhost:5000/health
+
+### Option 2: Docker (Easiest)
+
+```bash
+docker-compose up -d
+```
+
+This starts:
+- MongoDB on port 27017
+- Backend API on port 5000
+- Mongo Express (DB Admin) on port 8081
+
+## 📜 Available Scripts
+
+```bash
+# Development
+npm run dev              # Start both client and server
+npm run client:dev       # Start frontend only (port 3000)
+npm run server:dev       # Start backend only (port 5000)
+
+# Production Build
+npm run build            # Build both client and server
+npm run build:client     # Build frontend only
+npm run build:server     # Build backend only
+
+# Start Production
+npm start                # Start production server
+npm run server:start     # Start backend server
+npm run client:start     # Preview built frontend
+
+# Code Quality
+npm run lint             # Run ESLint
+npm run lint:fix         # Fix ESLint errors
+npm run type-check       # Check TypeScript types
+npm test                 # Run tests
+```
 
 ## 🌐 API Endpoints
 
 ### Videos
-- `GET /api/videos` - Get all videos (with pagination)
-- `GET /api/videos/:id` - Get single video
-- `POST /api/videos` - Create new video
-- `PUT /api/videos/:id` - Update video
-- `DELETE /api/videos/:id` - Delete video
-- `POST /api/videos/:id/view` - Increment view count
-- `POST /api/videos/:id/like` - Like video
-- `GET /api/videos/trending` - Get trending videos
+
+#### Get All Videos
+```http
+GET /api/videos?page=1&limit=10&sortBy=createdAt&order=desc&search=query
+```
+
+**Query Parameters:**
+- `page` - Page number (default: 1)
+- `limit` - Items per page (default: 10)
+- `sortBy` - Sort field (default: createdAt)
+- `order` - Sort order: asc/desc (default: desc)
+- `search` - Search in title, description, tags
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "...",
+      "title": "Video Title",
+      "url": "https://youtube.com/watch?v=...",
+      "videoId": "...",
+      "description": "Video description",
+      "tags": ["tag1", "tag2"],
+      "viewCount": 0,
+      "likes": 0,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 100,
+    "pages": 10
+  }
+}
+```
+
+#### Create Video
+```http
+POST /api/videos
+Content-Type: application/json
+
+{
+  "title": "Video Title",
+  "url": "https://youtube.com/watch?v=...",
+  "description": "Optional description",
+  "tags": ["tag1", "tag2"]
+}
+```
+
+#### Get Single Video
+```http
+GET /api/videos/:id
+```
+
+#### Update Video
+```http
+PUT /api/videos/:id
+Content-Type: application/json
+
+{
+  "title": "Updated Title",
+  "description": "Updated description",
+  "tags": ["new-tag"]
+}
+```
+
+#### Delete Video
+```http
+DELETE /api/videos/:id
+```
+
+#### Increment View Count
+```http
+POST /api/videos/:id/view
+```
+
+#### Like Video
+```http
+POST /api/videos/:id/like
+```
+
+#### Get Trending Videos
+```http
+GET /api/videos/trending?limit=10&days=7
+```
 
 ### Health Check
-- `GET /health` - Server health check
+```http
+GET /health
+```
 
-## 🔒 Environment Variables
+## 🗄️ Database Schema
 
-### Backend (.env)
+### Video Model
+```typescript
+{
+  title: String (required, max 200 chars)
+  url: String (required, valid YouTube URL)
+  videoId: String (required, unique)
+  description: String (optional, max 2000 chars)
+  tags: [String] (optional, max 10 tags)
+  viewCount: Number (default: 0)
+  likes: Number (default: 0)
+  userId: String (optional)
+  createdAt: Date (auto)
+  updatedAt: Date (auto)
+}
+```
+
+**Indexes:**
+- `videoId` - Unique index
+- `userId` - Index for filtering
+- Text search on `title`, `description`, `tags`
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
 ```env
+# Server
 NODE_ENV=development
 PORT=5000
+
+# Database
 MONGODB_URI=mongodb://localhost:27017/stonk-face
+
+# CORS
 CORS_ORIGIN=http://localhost:3000
+
+# Client (Vite)
+VITE_API_URL=http://localhost:5000
+```
+
+### MongoDB Connection
+
+**Local MongoDB:**
+```bash
+mongod
+```
+
+**Docker MongoDB:**
+```bash
+docker run -d -p 27017:27017 --name mongodb mongo:latest
+```
+
+**MongoDB Atlas (Cloud):**
+```env
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/stonk-face?retryWrites=true&w=majority
 ```
 
 ## 🐛 Troubleshooting
 
-### MongoDB Connection Error
-- Ensure MongoDB is running
-- Check connection string in `.env`
-- Verify MongoDB port (default: 27017)
-
 ### Port Already in Use
 ```bash
-# Find and kill process on port 5000
+# Find process on port 5000
 lsof -i :5000
+
+# Kill the process
 kill -9 <PID>
 ```
 
-### CORS Issues
-- Verify `CORS_ORIGIN` in backend `.env`
-- Check frontend URL matches CORS configuration
+### MongoDB Connection Error
+```bash
+# Check if MongoDB is running
+pgrep mongod
+
+# Start MongoDB
+mongod
+
+# Or use Docker
+docker start mongodb
+```
+
+### Dependencies Issues
+```bash
+# Clean install
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### Build Errors
+```bash
+# Clean dist folder
+rm -rf dist
+
+# Rebuild
+npm run build
+```
 
 ## 🚀 Deployment
 
-### Backend Deployment Options
-- **Heroku** - Easy deployment with MongoDB Atlas
-- **Railway** - Simple deployment with built-in MongoDB
-- **DigitalOcean** - VPS with PM2
-- **AWS EC2** - Full control over infrastructure
-- **Docker** - Containerized deployment
+### Backend Deployment (Heroku Example)
 
-### Frontend Deployment Options
-- **Vercel** - Zero-config deployment
-- **Netlify** - Static site hosting
-- **GitHub Pages** - Free hosting
-- **AWS S3 + CloudFront** - Scalable static hosting
+1. **Create Heroku app**
+```bash
+heroku create stonk-face-api
+```
 
-## 🤝 Contributing
+2. **Set environment variables**
+```bash
+heroku config:set NODE_ENV=production
+heroku config:set MONGODB_URI=your_mongodb_uri
+heroku config:set CORS_ORIGIN=https://your-frontend.com
+```
+
+3. **Deploy**
+```bash
+git push heroku main
+```
+
+### Frontend Deployment (Vercel Example)
+
+1. **Install Vercel CLI**
+```bash
+npm i -g vercel
+```
+
+2. **Deploy**
+```bash
+vercel --prod
+```
+
+3. **Set environment variables**
+```bash
+vercel env add VITE_API_URL
+```
+
+### Docker Deployment
+
+```bash
+# Build and run with Docker Compose
+docker-compose up -d --build
+
+# Stop services
+docker-compose down
+
+# View logs
+docker-compose logs -f
+```
+
+## 🔒 Security Features
+
+- **Helmet** - Security headers
+- **CORS** - Cross-origin resource sharing
+- **Input Validation** - Request validation with express-validator
+- **Error Handling** - No stack traces in production
+- **MongoDB Injection Prevention** - Mongoose schema validation
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm test -- --watch
+
+# Run tests with coverage
+npm test -- --coverage
+```
+
+## 📝 Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -192,28 +424,25 @@ kill -9 <PID>
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## 📄 License
 
 MIT License - see LICENSE file for details
 
-## 👥 Authors
-
-- Your Name - Initial work
-
 ## 🙏 Acknowledgments
 
-- YouTube API for video embedding
+- YouTube for video embedding
 - MongoDB for database
+- React and Vite teams
 - Express.js community
-- React community
+- All open-source contributors
 
 ## 📞 Support
 
-For questions and support:
-- Open an issue on GitHub
-- Email: support@stonkface.com
-- Discord: [Join our community]
+- **Issues**: [GitHub Issues](https://github.com/YOUR_USERNAME/stonk-face/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/YOUR_USERNAME/stonk-face/discussions)
 
 ---
 
-Built with ❤️ by the Stonk Face team
+**Built with ❤️ using React, Node.js, Express, TypeScript, and MongoDB**
+
+🎥 Happy video sharing!
