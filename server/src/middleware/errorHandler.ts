@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from "express";
 
 export interface ApiError extends Error {
   statusCode?: number;
@@ -17,7 +17,7 @@ export class AppError extends Error implements ApiError {
   constructor(message: string, statusCode: number) {
     super(message);
     this.statusCode = statusCode;
-    this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
+    this.status = `${statusCode}`.startsWith("4") ? "fail" : "error";
     this.isOperational = true;
 
     Error.captureStackTrace(this, this.constructor);
@@ -29,7 +29,7 @@ export class AppError extends Error implements ApiError {
  */
 const handleValidationError = (err: any): AppError => {
   const errors = Object.values(err.errors).map((el: any) => el.message);
-  const message = `Invalid input data. ${errors.join('. ')}`;
+  const message = `Invalid input data. ${errors.join(". ")}`;
   return new AppError(message, 400);
 };
 
@@ -78,11 +78,11 @@ const sendErrorProd = (err: ApiError, res: Response): void => {
     });
   } else {
     // Programming or unknown error: don't leak error details
-    console.error('ERROR 💥', err);
+    console.error("ERROR 💥", err);
 
     res.status(500).json({
       success: false,
-      message: 'Something went wrong on the server',
+      message: "Something went wrong on the server",
     });
   }
 };
@@ -92,22 +92,22 @@ const sendErrorProd = (err: ApiError, res: Response): void => {
  */
 export const errorHandler = (
   err: any,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction,
 ): void => {
   err.statusCode = err.statusCode || 500;
-  err.status = err.status || 'error';
+  err.status = err.status || "error";
 
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === "development") {
     sendErrorDev(err, res);
-  } else if (process.env.NODE_ENV === 'production') {
+  } else if (process.env.NODE_ENV === "production") {
     let error = { ...err, message: err.message };
 
     // Handle specific error types
-    if (err.name === 'ValidationError') error = handleValidationError(err);
+    if (err.name === "ValidationError") error = handleValidationError(err);
     if (err.code === 11000) error = handleDuplicateFieldsError(err);
-    if (err.name === 'CastError') error = handleCastError(err);
+    if (err.name === "CastError") error = handleCastError(err);
 
     sendErrorProd(error, res);
   } else {
@@ -119,7 +119,11 @@ export const errorHandler = (
 /**
  * Handle unhandled routes
  */
-export const notFound = (req: Request, res: Response, next: NextFunction): void => {
+export const notFound = (
+  req: Request,
+  _res: Response,
+  next: NextFunction,
+): void => {
   const err = new AppError(`Route ${req.originalUrl} not found`, 404);
   next(err);
 };
@@ -128,8 +132,8 @@ export const notFound = (req: Request, res: Response, next: NextFunction): void 
  * Async handler wrapper to catch errors in async route handlers
  */
 export const asyncHandler = (
-  fn: (req: Request, res: Response, next: NextFunction) => Promise<any>
-) => {
+  fn: (req: Request, res: Response, next: NextFunction) => Promise<any>,
+): ((req: Request, res: Response, next: NextFunction) => void) => {
   return (req: Request, res: Response, next: NextFunction) => {
     Promise.resolve(fn(req, res, next)).catch(next);
   };

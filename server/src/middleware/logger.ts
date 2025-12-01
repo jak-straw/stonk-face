@@ -1,9 +1,13 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from "express";
 
 /**
  * Request logger middleware
  */
-export const requestLogger = (req: Request, res: Response, next: NextFunction): void => {
+export const requestLogger = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
   const start = Date.now();
   const timestamp = new Date().toISOString();
 
@@ -11,13 +15,14 @@ export const requestLogger = (req: Request, res: Response, next: NextFunction): 
   console.log(`[${timestamp}] ${req.method} ${req.path}`);
 
   // Log response when finished
-  res.on('finish', () => {
+  res.on("finish", () => {
     const duration = Date.now() - start;
     const { statusCode } = res;
-    const statusEmoji = statusCode >= 500 ? '🔴' : statusCode >= 400 ? '🟡' : '🟢';
+    const statusEmoji =
+      statusCode >= 500 ? "🔴" : statusCode >= 400 ? "🟡" : "🟢";
 
     console.log(
-      `${statusEmoji} [${timestamp}] ${req.method} ${req.path} - ${statusCode} - ${duration}ms`
+      `${statusEmoji} [${timestamp}] ${req.method} ${req.path} - ${statusCode} - ${duration}ms`,
     );
   });
 
@@ -27,7 +32,11 @@ export const requestLogger = (req: Request, res: Response, next: NextFunction): 
 /**
  * API request details logger
  */
-export const detailedLogger = (req: Request, res: Response, next: NextFunction): void => {
+export const detailedLogger = (
+  req: Request,
+  _res: Response,
+  next: NextFunction,
+): void => {
   const timestamp = new Date().toISOString();
   const details = {
     timestamp,
@@ -37,10 +46,10 @@ export const detailedLogger = (req: Request, res: Response, next: NextFunction):
     query: req.query,
     params: req.params,
     ip: req.ip || req.socket.remoteAddress,
-    userAgent: req.get('user-agent'),
+    userAgent: req.get("user-agent"),
   };
 
-  console.log('📝 Request Details:', JSON.stringify(details, null, 2));
+  console.log("📝 Request Details:", JSON.stringify(details, null, 2));
 
   next();
 };
@@ -48,7 +57,12 @@ export const detailedLogger = (req: Request, res: Response, next: NextFunction):
 /**
  * Error logger middleware
  */
-export const errorLogger = (err: Error, req: Request, res: Response, next: NextFunction): void => {
+export const errorLogger = (
+  err: Error,
+  req: Request,
+  _res: Response,
+  next: NextFunction,
+): void => {
   const timestamp = new Date().toISOString();
 
   console.error(`[${timestamp}] ❌ Error:`, {
