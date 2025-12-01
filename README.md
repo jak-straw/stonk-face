@@ -1,18 +1,22 @@
-# Stonk Face 🎥
+# StonkFace 🎥
 
 A modern, full-stack video sharing application for YouTube videos, built with React, Node.js, Express, TypeScript, and MongoDB.
+
+> 🚀 **Ready to deploy to Cloudflare Pages!** See [Quick Deploy Guide](CLOUDFLARE_QUICKSTART.md)
 
 ## 🚀 Features
 
 - **Video Management** - Add, view, edit, and delete YouTube videos
 - **Video Gallery** - Browse all shared videos in a beautiful gallery
 - **Embedded Player** - Watch videos directly in the app
+- **Dark Mode** - Beautiful dark/light theme with persistence
 - **Search & Filter** - Find videos by title, description, or tags
 - **Trending Videos** - See most popular videos
 - **View Counter** - Track video views
 - **Like System** - Like your favorite videos
 - **RESTful API** - Full-featured backend API
 - **Type Safety** - TypeScript on both frontend and backend
+- **localStorage** - Client-side video storage (no backend required!)
 
 ## 📁 Project Structure
 
@@ -346,41 +350,56 @@ npm run build
 
 ## 🚀 Deployment
 
-### Backend Deployment (Heroku Example)
+### Cloudflare Pages (Recommended for Frontend)
 
-1. **Create Heroku app**
+**Quick Deploy in 5 Minutes!** 🚀
+
+1. **Pre-deployment check**
 ```bash
-heroku create stonk-face-api
+./pre-deploy-check.sh
 ```
 
-2. **Set environment variables**
+2. **Push to GitHub**
 ```bash
-heroku config:set NODE_ENV=production
-heroku config:set MONGODB_URI=your_mongodb_uri
-heroku config:set CORS_ORIGIN=https://your-frontend.com
+git push origin main
 ```
 
-3. **Deploy**
-```bash
-git push heroku main
-```
+3. **Deploy to Cloudflare Pages**
+   - Go to [Cloudflare Dashboard](https://dash.cloudflare.com/)
+   - Navigate to **Pages** → **Create a project**
+   - Connect your GitHub repository
+   - Use these settings:
+     - **Build command**: `npm run build:client`
+     - **Build output**: `dist/client`
+     - **Node version**: `18`
 
-### Frontend Deployment (Vercel Example)
+4. **Done!** Your site is live at: `https://stonk-face-xxx.pages.dev`
 
-1. **Install Vercel CLI**
-```bash
-npm i -g vercel
-```
+📚 **Detailed Guides:**
+- [5-Minute Quick Start](CLOUDFLARE_QUICKSTART.md) - Fast deployment
+- [Comprehensive Guide](DEPLOYMENT.md) - Full documentation with all options
+- [Deployment Summary](DEPLOY_SUMMARY.md) - Everything you need to know
 
-2. **Deploy**
-```bash
-vercel --prod
-```
+**Current Status:** Frontend works standalone with localStorage. Backend API integration is optional for future enhancement.
 
-3. **Set environment variables**
-```bash
-vercel env add VITE_API_URL
-```
+---
+
+### Backend Deployment (Optional - Future)
+
+The backend exists but is not currently connected to the frontend. When you're ready to integrate:
+
+**Recommended Services:**
+- **Railway** - Easy Node.js deployment
+- **Render** - Free tier available
+- **Heroku** - Classic choice
+- **Fly.io** - Edge deployment
+
+**Database:**
+- **MongoDB Atlas** - Free tier (M0)
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for backend deployment instructions.
+
+---
 
 ### Docker Deployment
 
@@ -441,8 +460,18 @@ MIT License - see LICENSE file for details
 - **Issues**: [GitHub Issues](https://github.com/YOUR_USERNAME/stonk-face/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/YOUR_USERNAME/stonk-face/discussions)
 
+## 📖 Documentation
+
+- [README.md](README.md) - This file
+- [CLOUDFLARE_QUICKSTART.md](CLOUDFLARE_QUICKSTART.md) - 5-minute deployment guide
+- [DEPLOYMENT.md](DEPLOYMENT.md) - Comprehensive deployment guide
+- [DEPLOY_SUMMARY.md](DEPLOY_SUMMARY.md) - Pre-deployment checklist
+- [QUICKSTART.md](QUICKSTART.md) - Local development guide
+- [DARK_MODE.md](DARK_MODE.md) - Dark mode implementation details
+
 ---
 
 **Built with ❤️ using React, Node.js, Express, TypeScript, and MongoDB**
 
-🎥 Happy video sharing!
+🎥 Happy video sharing with StonkFace!
+</text>
