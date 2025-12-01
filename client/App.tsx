@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { VideoForm } from "./components/VideoForm";
 import { VideoGallery, type Video } from "./components/VideoGallery";
 import { VideoPlayer } from "./components/VideoPlayer";
+import { ThemeToggle } from "./components/ThemeToggle";
 import { Youtube } from "lucide-react";
 
 function extractVideoId(url: string): string | null {
@@ -59,9 +60,12 @@ function App() {
     <div className="min-h-screen bg-background">
       <header className="border-b">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center gap-3">
-            <Youtube className="size-8 text-primary" />
-            <h1>VideoShare</h1>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Youtube className="size-8 text-primary" />
+              <h1>VideoShare</h1>
+            </div>
+            <ThemeToggle />
           </div>
         </div>
       </header>
